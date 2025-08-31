@@ -1,6 +1,6 @@
 {
   "name": "nekos",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Let's have cute cats mess around in the log!",
   "main": "index.js",
   "types": "index.d.ts",
