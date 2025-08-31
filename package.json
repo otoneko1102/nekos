@@ -1,7 +1,8 @@
 {
   "name": "nekos",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Let's have cute cats mess around in the log!",
+  "type": "module",
   "main": "index.js",
   "exports": {
     "import": "./index.js",
@@ -32,6 +33,7 @@
   },
   "homepage": "https://github.com/otoneko1102/nekos#readme",
   "dependencies": {
+    "@randplus/color": "^2.1.4",
     "gradient-string": "^3.0.0"
   },
   "devDependencies": {
