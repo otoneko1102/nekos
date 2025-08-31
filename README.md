@@ -15,7 +15,10 @@ npm install nekos
 ## Usage
 
 ```javascript
+// ESM
 import nekos from "nekos";
+// CJS
+const nekos = require("nekos").default;
 
 // Log a random cat
 nekos();

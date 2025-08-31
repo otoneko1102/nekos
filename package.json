@@ -1,10 +1,12 @@
 {
   "name": "nekos",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Let's have cute cats mess around in the log!",
-  "type": "module",
-  "main": "index.cjs",
-  "module": "index.js",
+  "main": "index.js",
+  "exports": {
+    "import": "./index.js",
+    "require": "./index.cjs"
+  },
   "types": "index.d.ts",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
