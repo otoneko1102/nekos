@@ -32,32 +32,31 @@ jobs:
             exit 0
           fi
 
-          # Rule: Add only one file per pull request.
-          if [ $(echo "$ADDED_FILES" | wc -l) -ne 1 ]; then
-            echo "❌ Error: Please add only one AA file per pull request."
-            exit 1
-          fi
+          # Loop through each added file and validate it.
+          for FILE_PATH in $ADDED_FILES; do
+            echo "--- Validating file: $FILE_PATH ---"
+            FILENAME=$(basename "$FILE_PATH")
+            BASENAME="${FILENAME%.*}"
 
-          FILENAME=$(basename "$ADDED_FILES")
-          BASENAME="${FILENAME%.*}"
+            # Rule: File must be unique (must not exist on the main branch).
+            if git cat-file -e origin/${{ github.base_ref }}:"$FILE_PATH" 2>/dev/null; then
+              echo "❌ Error: A file named '$FILENAME' already exists. Please choose a unique name."
+              exit 1
+            fi
 
-          # Rule: File must be unique (must not exist on the main branch).
-          if git cat-file -e origin/${{ github.base_ref }}:"$ADDED_FILES" 2>/dev/null; then
-            echo "❌ Error: A file named '$FILENAME' already exists. Please choose a unique name."
-            exit 1
-          fi
+            # Rule: File must have a .txt extension.
+            if [[ ! "$FILENAME" =~ \.txt$ ]]; then
+              echo "❌ Error: Filename '$FILENAME' must have a .txt extension."
+              exit 1
+            fi
 
-          # Rule: File must have a .txt extension.
-          if [[ ! "$FILENAME" =~ \.txt$ ]]; then
-            echo "❌ Error: Filename must have a .txt extension."
-            exit 1
-          fi
+            # Rule: Filename must use allowed characters.
+            if [[ ! "$BASENAME" =~ ^[a-z0-9_-]+$ ]]; then
+              echo "❌ Error: Filename '$BASENAME' contains invalid characters."
+              echo "Only lowercase letters (a-z), numbers (0-9), underscores (_), and hyphens (-) are allowed."
+              exit 1
+            fi
+          done
 
-          # Rule: Filename must use allowed characters.
-          if [[ ! "$BASENAME" =~ ^[a-z0-9_-]+$ ]]; then
-            echo "❌ Error: Filename '$BASENAME' contains invalid characters."
-            echo "Only lowercase letters (a-z), numbers (0-9), underscores (_), and hyphens (-) are allowed."
-            exit 1
-          fi
-
-          echo "✅ All contribution rules passed for '$FILENAME'!"
+          FILE_COUNT=$(echo "$ADDED_FILES" | wc -l)
+          echo "✅ All $FILE_COUNT added file(s) passed the validation rules!"
