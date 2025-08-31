@@ -1,0 +1,63 @@
+name: Validate AA Contribution
+
+on:
+  pull_request:
+    paths:
+      - "aa/**"
+
+jobs:
+  validate-aa-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run validation script
+        run: |
+          set -e
+
+          # Rule: Do not modify or delete existing files.
+          if git diff --name-status origin/${{ github.base_ref }} -- aa/ | grep -qE "^[MD]"; then
+            echo "❌ Error: Modifying or deleting existing files in the 'aa' directory is not allowed."
+            exit 1
+          fi
+
+          # Get all added files in the 'aa' directory.
+          ADDED_FILES=$(git diff --name-only --diff-filter=A origin/${{ github.base_ref }} -- aa/)
+
+          if [ -z "$ADDED_FILES" ]; then
+            echo "✅ No new AA files added. Skipping validation."
+            exit 0
+          fi
+
+          # Rule: Add only one file per pull request.
+          if [ $(echo "$ADDED_FILES" | wc -l) -ne 1 ]; then
+            echo "❌ Error: Please add only one AA file per pull request."
+            exit 1
+          fi
+
+          FILENAME=$(basename "$ADDED_FILES")
+          BASENAME="${FILENAME%.*}"
+
+          # Rule: File must be unique (must not exist on the main branch).
+          if git cat-file -e origin/${{ github.base_ref }}:"$ADDED_FILES" 2>/dev/null; then
+            echo "❌ Error: A file named '$FILENAME' already exists. Please choose a unique name."
+            exit 1
+          fi
+
+          # Rule: File must have a .txt extension.
+          if [[ ! "$FILENAME" =~ \.txt$ ]]; then
+            echo "❌ Error: Filename must have a .txt extension."
+            exit 1
+          fi
+
+          # Rule: Filename must use allowed characters.
+          if [[ ! "$BASENAME" =~ ^[a-z0-9_-]+$ ]]; then
+            echo "❌ Error: Filename '$BASENAME' contains invalid characters."
+            echo "Only lowercase letters (a-z), numbers (0-9), underscores (_), and hyphens (-) are allowed."
+            exit 1
+          fi
+
+          echo "✅ All contribution rules passed for '$FILENAME'!"

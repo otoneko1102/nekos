@@ -1,0 +1,36 @@
+{
+  "name": "nekos",
+  "version": "0.0.0",
+  "description": "Let's have cute cats mess around in the log!",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otoneko1102/cats.git"
+  },
+  "keywords": [
+    "log",
+    "kawaii",
+    "joke",
+    "cat",
+    "cats",
+    "neko",
+    "nekos"
+  ],
+  "author": "otoneko.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/otoneko1102/cats/issues"
+  },
+  "homepage": "https://github.com/otoneko1102/cats#readme",
+  "dependencies": {
+    "gradient-string": "^3.0.0"
+  },
+  "devDependencies": {
+    "jest": "^30.1.1"
+  }
+}
