@@ -32,8 +32,14 @@ jobs:
             exit 0
           fi
 
+          # Display the list of files to be validated for clarity.
+          echo "--- Files to be Added ---"
+          echo "$ADDED_FILES"
+          echo "-------------------------"
+
           # Loop through each added file and validate it.
           for FILE_PATH in $ADDED_FILES; do
+            echo # Add a blank line for spacing
             echo "--- Validating file: $FILE_PATH ---"
             FILENAME=$(basename "$FILE_PATH")
             BASENAME="${FILENAME%.*}"
@@ -46,7 +52,7 @@ jobs:
 
             # Rule: File must have a .txt extension.
             if [[ ! "$FILENAME" =~ \.txt$ ]]; then
-              echo "❌ Error: Filename '$FILENAME' must have a .txt extension."
+              echo "❌ Error: Filename '$FILENAME' must have a .txt extension. Other extensions or no extension are not allowed."
               exit 1
             fi
 
@@ -59,4 +65,5 @@ jobs:
           done
 
           FILE_COUNT=$(echo "$ADDED_FILES" | wc -l)
+          echo # Add a blank line for spacing
           echo "✅ All $FILE_COUNT added file(s) passed the validation rules!"
