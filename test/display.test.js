@@ -23,11 +23,9 @@ afterEach(() => {
   consoleSpy.mockRestore();
 });
 
-// --- ここからが修正箇所 ---
 // Check if the test-specific file exists before running tests that depend on it.
 const testFilePath = path.join(aaDir, "first_cat.txt");
 const testFileExists = fs.existsSync(testFilePath);
-// --- ここまでが修正箇所 ---
 
 describe("Tests for the nekos function", () => {
   test("should log a random ASCII art when called with no options", () => {
