@@ -135,3 +135,7 @@ nekos({ colors: ["#ff00ff", "#00ffff"] });
 ## コントリビューション
 
 コントリビューションを歓迎します！詳細は[コントリビューションガイドライン](CONTRIBUTING.md)をご覧ください。
+
+# Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=otoneko1102/nekos)](https://github.com/otoneko1102/nekos/graphs/contributors)
