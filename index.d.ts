@@ -1,32 +1,6 @@
-type HexChar =
-  | "0"
-  | "1"
-  | "2"
-  | "3"
-  | "4"
-  | "5"
-  | "6"
-  | "7"
-  | "8"
-  | "9"
-  | "a"
-  | "b"
-  | "c"
-  | "d"
-  | "e"
-  | "f"
-  | "A"
-  | "B"
-  | "C"
-  | "D"
-  | "E"
-  | "F";
-
-type HexColor = `#${HexChar}${HexChar}${HexChar}${HexChar}${HexChar}${HexChar}`;
-
 type ColorKeyword = "RANDOM" | "RAINBOW";
 
-type ColorValue = ColorKeyword | HexColor;
+type ColorValue = ColorKeyword | string;
 
 /**
  * An object of options for the nekos function.
