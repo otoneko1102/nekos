@@ -82,7 +82,10 @@ npm install nekos
 ## 使い方
 
 ```javascript
+// ESM
 import nekos from "nekos";
+// CJS
+const nekos = require("nekos").default;
 
 // ランダムな猫を表示
 nekos();
