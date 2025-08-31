@@ -6,6 +6,8 @@
 
 A simple CLI tool to display cat ASCII art in your console.
 
+![sample](img/sample.png)
+
 ## Install
 
 ```bash
