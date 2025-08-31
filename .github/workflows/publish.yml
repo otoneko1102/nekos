@@ -1,15 +1,14 @@
-name: Publish to npm
+name: Publish to npm on push to main
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - main
+    paths:
+      - "aa/**"
 
 jobs:
   publish-npm:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,6 +25,12 @@ jobs:
 
       - name: Version bump, commit, and tag
         run: |
+          # Prevents the workflow from running in a loop
+          if git log -1 --pretty=%B | grep -q "chore: release"; then
+            echo "Skipping version bump because this is a release commit."
+            exit 0
+          fi
+
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
@@ -34,7 +39,13 @@ jobs:
           git push
           git push --tags
 
-      - name: Publish to npm
-        run: npm publish --provenance --access public
+      - name: Publish to npm with provenance
+        run: |
+          # Skip publish if the version bump was skipped
+          if git log -1 --pretty=%B | grep -q "chore: release"; then
+            echo "Skipping publish because this is a release commit."
+          else
+            npm publish --provenance --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
