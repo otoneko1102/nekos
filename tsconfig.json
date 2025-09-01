@@ -4,9 +4,11 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "strict": true,
+    "noUncheckedIndexedAccess": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "outDir": "dist",
     "declaration": true,
     "emitDeclarationOnly": true
