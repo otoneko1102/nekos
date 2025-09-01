@@ -1,6 +1,6 @@
 {
   "name": "nekos",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Let's have cute cats mess around in the log!",
   "type": "module",
   "main": "dist/index.cjs",
