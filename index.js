@@ -1,8 +1,16 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { hex } from "@randplus/color";
 import gradient from "gradient-string";
+
+/**
+ * Generates a random HEX color code (e.g., #1a2b3c).
+ * @returns {string} A random color code.
+ */
+function getRandomHexColor() {
+  const randomColor = Math.floor(Math.random() * 16777216).toString(16);
+  return `#${randomColor.padStart(6, "0")}`;
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -58,14 +66,14 @@ function nekos(options = {}) {
       if (upperCaseColor === "RAINBOW") {
         processedColors = rainbowColors;
       } else if (upperCaseColor === "RANDOM") {
-        processedColors = [hex("#")];
+        processedColors = [getRandomHexColor()];
       } else {
         processedColors = [colors];
       }
     } else if (Array.isArray(colors)) {
       processedColors = colors.map((color) =>
         typeof color === "string" && color.toUpperCase() === "RANDOM"
-          ? hex("#")
+          ? getRandomHexColor()
           : color
       );
     } else {

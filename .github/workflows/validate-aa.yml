@@ -14,56 +14,50 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Validate Files and Prepare Comment
-        id: validation
+      - name: Run validation script
         run: |
-          # --- Part 1: Run validations (same as before) ---
           set -e
+
+          # Rule: Do not modify or delete existing files.
           if git diff --name-status origin/${{ github.base_ref }} -- aa/ | grep -qE "^[MD]"; then
-            echo "❌ Error: Modifying or deleting existing files is not allowed."
+            echo "❌ Error: Modifying or deleting existing files in the 'aa' directory is not allowed."
             exit 1
           fi
 
+          # Get all added files in the 'aa' directory.
           ADDED_FILES=$(git diff --name-only --diff-filter=A origin/${{ github.base_ref }} -- aa/)
+
           if [ -z "$ADDED_FILES" ]; then
-            echo "No new AA files added. Skipping validation."
-            echo "comment_body=✅ No new AA files to validate." >> $GITHUB_OUTPUT
+            echo "✅ No new AA files added. Skipping validation."
             exit 0
           fi
 
-          for FILE_PATH in $ADDED_FILES; do
-            # (Validations for each file remain the same)
-            FILENAME=$(basename "$FILE_PATH")
-            BASENAME="${FILENAME%.*}"
-            if git cat-file -e origin/${{ github.base_ref }}:"$FILE_PATH" 2>/dev/null; then exit 1; fi
-            if [[ ! "$FILENAME" =~ \.txt$ ]]; then exit 1; fi
-            if [[ ! "$BASENAME" =~ ^[a-z0-9_-]+$ ]]; then exit 1; fi
-          done
+          # Rule: Add only one file per pull request.
+          if [ $(echo "$ADDED_FILES" | wc -l) -ne 1 ]; then
+            echo "❌ Error: Please add only one AA file per pull request."
+            exit 1
+          fi
 
-          # --- Part 2: Prepare the comment body with file links ---
-          FILE_COUNT=$(echo "$ADDED_FILES" | wc -l)
+          FILENAME=$(basename "$ADDED_FILES")
+          BASENAME="${FILENAME%.*}"
 
-          # Prepare variables for URL construction
-          REPO_URL="https://github.com/${{ github.repository }}"
-          COMMIT_SHA="${{ github.event.pull_request.head.sha }}"
+          # Rule: File must be unique (must not exist on the main branch).
+          if git cat-file -e origin/${{ github.base_ref }}:"$ADDED_FILES" 2>/dev/null; then
+            echo "❌ Error: A file named '$FILENAME' already exists. Please choose a unique name."
+            exit 1
+          fi
 
-          COMMENT_BODY="### 🎨 AA Contribution Check\n\nThe following ${FILE_COUNT} file(s) were found in this pull request:\n"
+          # Rule: File must have a .txt extension.
+          if [[ ! "$FILENAME" =~ \.txt$ ]]; then
+            echo "❌ Error: Filename must have a .txt extension."
+            exit 1
+          fi
 
-          # Loop through files and create a Markdown list with links
-          while read -r file; do
-            FILE_URL="${REPO_URL}/blob/${COMMIT_SHA}/${file}"
-            COMMENT_BODY="${COMMENT_BODY}\n- [\`${file}\`](${FILE_URL})"
-          done <<< "$ADDED_FILES"
+          # Rule: Filename must use allowed characters.
+          if [[ ! "$BASENAME" =~ ^[a-z0-9_-]+$ ]]; then
+            echo "❌ Error: Filename '$BASENAME' contains invalid characters."
+            echo "Only lowercase letters (a-z), numbers (0-9), underscores (_), and hyphens (-) are allowed."
+            exit 1
+          fi
 
-          COMMENT_BODY="${COMMENT_BODY}\n\n**Result:** ✅ All files passed validation!"
-
-          # Save the multiline string to the GITHUB_OUTPUT
-          echo 'comment_body<<EOF' >> $GITHUB_OUTPUT
-          echo -e "$COMMENT_BODY" >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
-
-      - name: Post or Update Comment
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.validation.outputs.comment_body }}
+          echo "✅ All contribution rules passed for '$FILENAME'!"

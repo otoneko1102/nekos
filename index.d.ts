@@ -1,6 +1,4 @@
-type ColorKeyword = "RANDOM" | "RAINBOW";
-
-type ColorValue = ColorKeyword | string;
+// index.d.ts
 
 /**
  * An object of options for the nekos function.
@@ -12,9 +10,9 @@ interface NekosOptions {
   id?: string;
 
   /**
-   * A 6-digit hex color code, a keyword ("RANDOM", "RAINBOW"), or an array of these values for a gradient.
+   * A single color, a keyword ("RANDOM", "RAINBOW"), or an array of colors/keywords for a gradient.
    */
-  colors?: ColorValue | ColorValue[];
+  colors?: string | string[];
 }
 
 /**
@@ -24,8 +22,8 @@ interface NekosOptions {
  * @example
  * import nekos from 'nekos';
  *
- * // Log a cat with a specific hex color
- * nekos({ colors: '#a4c8e1' });
+ * // Log a cat with the ID 'my_cat'
+ * nekos({ id: 'my_cat' });
  */
 declare function nekos(options?: NekosOptions): void;
 

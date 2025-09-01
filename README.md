@@ -6,8 +6,6 @@
 
 A simple CLI tool to display cat ASCII art in your console.
 
-![sample](img/sample.png)
-
 ## Install
 
 ```bash
@@ -17,10 +15,7 @@ npm install nekos
 ## Usage
 
 ```javascript
-// ESM
 import nekos from "nekos";
-// CJS
-const nekos = require("nekos").default;
 
 // Log a random cat
 nekos();
@@ -84,10 +79,7 @@ npm install nekos
 ## 使い方
 
 ```javascript
-// ESM
 import nekos from "nekos";
-// CJS
-const nekos = require("nekos").default;
 
 // ランダムな猫を表示
 nekos();
@@ -135,7 +127,3 @@ nekos({ colors: ["#ff00ff", "#00ffff"] });
 ## コントリビューション
 
 コントリビューションを歓迎します！詳細は[コントリビューションガイドライン](CONTRIBUTING.md)をご覧ください。
-
-# Contributors
-
-[![Contributors](https://contrib.rocks/image?repo=otoneko1102/nekos)](https://github.com/otoneko1102/nekos/graphs/contributors)
