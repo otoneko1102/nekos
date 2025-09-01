@@ -43,7 +43,7 @@ function nekos(options: NekosOptions = {}) {
       targetFile = files[randomIndex];
     }
 
-    const filePath = path.join(aaDir, targetFile);
+    const filePath = path.join(aaDir, targetFile as string);
     catAscii = fs.readFileSync(filePath, "utf-8");
   } catch (error) {
     console.error("Error reading ascii art file:", error);
@@ -81,7 +81,7 @@ function nekos(options: NekosOptions = {}) {
     }
 
     if (Array.isArray(processedColors) && processedColors.length === 1) {
-      processedColors.push(processedColors[0]);
+      processedColors.push(processedColors[0] as string);
     }
 
     if (processedColors && processedColors.length > 0) {
