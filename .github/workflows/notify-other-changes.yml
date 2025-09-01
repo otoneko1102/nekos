@@ -1,0 +1,58 @@
+name: Notify Other File Changes
+
+on:
+  pull_request:
+    # Run this workflow for any change, EXCEPT when changes are ONLY in the 'aa/' directory.
+    paths-ignore:
+      - "aa/**"
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare Comment for Other Changes
+        id: prep_comment
+        run: |
+          # Get all changed files, excluding the 'aa/' directory and docs.
+          # The `|| true` prevents the script from failing if grep finds nothing.
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | grep -v -e '^aa/' -e '^README.md$' -e '^CONTRIBUTING.md$' || true)
+
+          # If the list is empty, it means only ignored files were changed.
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No significant code files were changed. No comment needed."
+            # Output a variable to skip the next step
+            echo "skip_comment=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          FILE_COUNT=$(echo "$CHANGED_FILES" | wc -l | xargs)
+
+          COMMENT_BODY="### 📝 Code Change Notification\n\n"
+          COMMENT_BODY="${COMMENT_BODY}This pull request includes changes to the following ${FILE_COUNT} file(s) outside the \`aa/\` directory:\n"
+
+          REPO_URL="https://github.com/${{ github.repository }}"
+          COMMIT_SHA="${{ github.event.pull_request.head.sha }}"
+          while read -r file; do
+            FILE_URL="${REPO_URL}/blob/${COMMIT_SHA}/${file}"
+            COMMENT_BODY="${COMMENT_BODY}\n- [\`${file}\`](${FILE_URL})"
+          done <<< "$CHANGED_FILES"
+
+          # Add a unique hidden identifier for the comment action to find this comment later.
+          COMMENT_BODY="${COMMENT_BODY}\n\n"
+
+          echo 'comment_body<<EOF' >> $GITHUB_OUTPUT
+          echo -e "$COMMENT_BODY" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+          echo "skip_comment=false" >> $GITHUB_OUTPUT
+
+      - name: Post or Update Comment
+        if: steps.prep_comment.outputs.skip_comment == 'false'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ steps.prep_comment.outputs.comment_body }}

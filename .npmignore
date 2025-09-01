@@ -1,5 +1,16 @@
-.github
-node_modules
-test
+# GitHub
+.github/
+archives/
+img/
 
+# Dependencies
+node_modules/
+
+# Dev
+src/
+scripts/
+test/
+
+# Config
+tsconfig.json
 .env

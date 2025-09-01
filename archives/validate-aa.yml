@@ -1,0 +1,69 @@
+name: Validate AA Contribution
+
+on:
+  pull_request:
+    paths:
+      - "aa/**"
+
+jobs:
+  validate-aa-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run validation script
+        run: |
+          set -e
+
+          # Rule: Do not modify or delete existing files.
+          if git diff --name-status origin/${{ github.base_ref }} -- aa/ | grep -qE "^[MD]"; then
+            echo "❌ Error: Modifying or deleting existing files in the 'aa' directory is not allowed."
+            exit 1
+          fi
+
+          # Get all added files in the 'aa' directory.
+          ADDED_FILES=$(git diff --name-only --diff-filter=A origin/${{ github.base_ref }} -- aa/)
+
+          if [ -z "$ADDED_FILES" ]; then
+            echo "✅ No new AA files added. Skipping validation."
+            exit 0
+          fi
+
+          # Display the list of files to be validated for clarity.
+          echo "--- Files to be Added ---"
+          echo "$ADDED_FILES"
+          echo "-------------------------"
+
+          # Loop through each added file and validate it.
+          for FILE_PATH in $ADDED_FILES; do
+            echo # Add a blank line for spacing
+            echo "--- Validating file: $FILE_PATH ---"
+            FILENAME=$(basename "$FILE_PATH")
+            BASENAME="${FILENAME%.*}"
+
+            # Rule: File must be unique (must not exist on the main branch).
+            if git cat-file -e origin/${{ github.base_ref }}:"$FILE_PATH" 2>/dev/null; then
+              echo "❌ Error: A file named '$FILENAME' already exists. Please choose a unique name."
+              exit 1
+            fi
+
+            # Rule: File must have a .txt extension.
+            if [[ ! "$FILENAME" =~ \.txt$ ]]; then
+              echo "❌ Error: Filename '$FILENAME' must have a .txt extension. Other extensions or no extension are not allowed."
+              exit 1
+            fi
+
+            # Rule: Filename must use allowed characters.
+            if [[ ! "$BASENAME" =~ ^[a-z0-9_-]+$ ]]; then
+              echo "❌ Error: Filename '$BASENAME' contains invalid characters."
+              echo "Only lowercase letters (a-z), numbers (0-9), underscores (_), and hyphens (-) are allowed."
+              exit 1
+            fi
+          done
+
+          FILE_COUNT=$(echo "$ADDED_FILES" | wc -l)
+          echo # Add a blank line for spacing
+          echo "✅ All $FILE_COUNT added file(s) passed the validation rules!"

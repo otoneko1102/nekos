@@ -6,7 +6,7 @@ import {
   beforeEach,
   afterEach,
 } from "@jest/globals";
-import nekos from "../index.js";
+import nekos from "../dist/index.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
