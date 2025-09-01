@@ -1,0 +1,25 @@
+name: Enforce AA Contributions to Main
+
+on:
+  pull_request:
+    # Run only for pull requests that contain changes in the 'aa' directory
+    paths:
+      - "aa/**"
+
+jobs:
+  check-target-branch:
+    # This job will only run if the pull request's target branch is NOT 'main'
+    if: github.base_ref != 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post Warning Comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ⚠ Do not send a pull request for ASCII art to this branch. Please send to `main` branch.
+
+      - name: Fail the Workflow
+        run: |
+          echo "Error: Pull request with AA changes targets '${{ github.base_ref }}' but should target 'main'."
+          exit 1
