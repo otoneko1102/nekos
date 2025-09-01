@@ -6,7 +6,7 @@ We welcome contributions! If you want to add a new ASCII art, please follow thes
 
 You can add new cat ASCII art to the `aa/` directory. A pull request is required to add a file.
 
-> ⚠ Do not send a pull request to `requests` branch. Please send to `main` branch.
+> ⚠ Do not send a pull request for ASCII art to `requests` or `dev` branch. Please send to `main` branch.
 
 ### Contribution Rules
 
@@ -28,7 +28,7 @@ Thank you for your contribution! 🐱
 
 `aa/` ディレクトリに新しい猫のアスキーアートを追加できます。ファイルを追加するにはプルリクエストが必要です。
 
-> ⚠ `requests` ブランチにプルリクエストを送信しないでください。 `main` ブランチに送信をお願いします。
+> ⚠ `requests` や `dev` ブランチにアスキーアートのためのプルリクエストを送信しないでください。 `main` ブランチに送信をお願いします。
 
 ### コントリビューションのルール
 
