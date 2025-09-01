@@ -23,15 +23,21 @@ jobs:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Version Bump and Publish to npm
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Package
+        run: npm run build
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Version Bump, Push, and Publish
         run: |
-          # Prevents the workflow from running in a loop on its own commit
           if git log -1 --pretty=%B | grep -q "chore: release"; then
             echo "Skipping: This is a release commit created by a previous run."
             exit 0
           fi
-
-          echo "✅ Not a release commit. Proceeding with version bump and publish..."
 
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"

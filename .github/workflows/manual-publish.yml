@@ -19,7 +19,16 @@ jobs:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Publish to npm with provenance
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Package
+        run: npm run build
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Publish to npm
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -29,7 +38,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Get the version from the just-published package
           VERSION=$(node -p "require('./package.json').version")
 
+          # Create and push a git tag for the version
           git tag "v$VERSION"
           git push origin "v$VERSION"
