@@ -15,8 +15,7 @@
     "clean": "rimraf dist",
     "build:types": "tsc",
     "build:js": "node scripts/build.js",
-    "build": "npm run build:types && npm run build:js",
-    "prepublishOnly": "npm run build"
+    "build": "npm run clean && run build:types && npm run build:js"
   },
   "repository": {
     "type": "git",
