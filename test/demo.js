@@ -1,4 +1,4 @@
-import nekos from '../index.js';
+import nekos from '../dist/index.js';
 
 console.log('--- 1. Default (Random Cat) ---');
 nekos();

@@ -1,4 +1,4 @@
-const nekos = require( '../index.cjs').default;
+const nekos = require( '../dist/index.cjs').default;
 
 console.log('--- 1. Default (Random Cat) ---');
 nekos();

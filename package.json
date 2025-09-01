@@ -1,17 +1,22 @@
 {
   "name": "nekos",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "Let's have cute cats mess around in the log!",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "exports": {
-    "import": "./index.js",
-    "require": "./index.cjs"
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "build": "node build.js"
+    "clean": "rimraf dist",
+    "build:types": "tsc",
+    "build:js": "node scripts/build.js",
+    "build": "npm run clean && npm run build:types && npm run build:js",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -33,11 +38,14 @@
   },
   "homepage": "https://github.com/otoneko1102/nekos#readme",
   "dependencies": {
-    "@randplus/color": "^2.1.4",
+    "@randplus/color": "^3.0.0",
     "gradient-string": "^3.0.0"
   },
   "devDependencies": {
+    "@types/node": "^24.3.0",
     "esbuild": "^0.25.9",
-    "jest": "^30.1.1"
+    "jest": "^30.1.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.2"
   }
 }
