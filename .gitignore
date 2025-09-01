@@ -1,5 +1,8 @@
 # Dependencies
 node_modules/
 
+# Private
+private/
+
 # Config
 .env
