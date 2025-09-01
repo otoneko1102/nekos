@@ -26,27 +26,32 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build Package
-        run: npm run build
+      - name: Build and Test
+        run: |
+          npm run build
+          npm test
 
-      - name: Run Tests
-        run: npm test
-
-      - name: Version Bump, Push, and Publish
+      - name: Commit, Push, and Publish
         run: |
           if git log -1 --pretty=%B | grep -q "chore: release"; then
-            echo "Skipping: This is a release commit created by a previous run."
+            echo "Skipping: This is a release commit from a previous run."
             exit 0
           fi
 
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Add the generated dist directory to the staging area
+          git add dist
+
+          # Create the version bump commit. If dist was changed, it will be included.
           npm version patch -m "chore: release %s"
 
+          # Push the commit and the new tag
           git push
           git push --tags
 
+          # Publish to npm
           npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

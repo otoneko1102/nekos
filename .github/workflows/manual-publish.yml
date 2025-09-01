@@ -19,14 +19,20 @@ jobs:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Install Dependencies
-        run: npm ci
+      - name: Install, Build, and Test
+        run: |
+          npm ci
+          npm run build
+          npm test
 
-      - name: Build Package
-        run: npm run build
-
-      - name: Run Tests
-        run: npm test
+      - name: Commit dist directory (if changed)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist
+          # The following command creates a commit ONLY if there are staged changes.
+          git diff --staged --quiet || git commit -m "chore: update build artifacts"
+          git push
 
       - name: Publish to npm
         run: npm publish --provenance --access public
@@ -35,12 +41,7 @@ jobs:
 
       - name: Create and Push Git Tag
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Get the version from the just-published package
+          # This step now runs after the dist commit, ensuring the tag points to the correct commit.
           VERSION=$(node -p "require('./package.json').version")
-
-          # Create and push a git tag for the version
           git tag "v$VERSION"
           git push origin "v$VERSION"
