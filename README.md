@@ -36,9 +36,48 @@ nekos({ colors: "RANDOM" });
 
 // Log a cat with a custom gradient
 nekos({ colors: ["#ff00ff", "#00ffff"] });
+
+// Log a specific cat with two random gradient colors
+nekos({ id: "sad_cat", colors: ["RANDOM", "RANDOM"] });
 ```
 
-[Example - demo.js](test/demo.js)
+[ESM Example - demo.js](test/demo.js)
+[CJS Example - demo.cjs](test/demo.cjs)
+
+---
+
+## CLI Usage
+
+For command line use, either install the package globally or use `npx`.
+
+```bash
+# Install globally
+npm install -g nekos
+```
+
+### Examples
+
+```bash
+# Display a random cat
+nekos
+
+# Display a specific cat by ID
+nekos --id my_cat
+
+# Display a cat with a rainbow gradient
+nekos --colors RAINBOW
+
+# Display a cat with two random gradient colors
+nekos --colors RANDOM RANDOM
+
+# Display a specific cat with a custom gradient
+nekos --id sad_cat --colors "#ff00ff" "#00ffff"
+
+# You can also use npx without a global installation
+npx nekos --colors "#ff00ff #00ffff"
+```
+
+---
 
 ## API
 
@@ -103,9 +142,48 @@ nekos({ colors: "RANDOM" });
 
 // カスタムグラデーションで猫を表示
 nekos({ colors: ["#ff00ff", "#00ffff"] });
+
+// IDを指定した猫に、2色のランダムなグラデーションを適用
+nekos({ id: "sad_cat", colors: ["RANDOM", "RANDOM"] });
 ```
 
-[Example - demo.js](test/demo.js)
+[ESM Example - demo.js](test/demo.js)
+[CJS Example - demo.cjs](test/demo.cjs)
+
+---
+
+## コマンドラインでの使い方
+
+コマンドラインで使うには、パッケージをグローバルインストールするか、`npx`を利用します。
+
+```bash
+# グローバルインストール
+npm install -g nekos
+```
+
+### 実行例
+
+```bash
+# ランダムな猫を表示
+nekos
+
+# IDを指定して特定の猫を表示
+nekos --id my_cat
+
+# 虹色のグラデーションで猫を表示
+nekos --colors RAINBOW
+
+# 2色のランダムなグラデーションで猫を表示
+nekos --colors RANDOM RANDOM
+
+# IDを指定した猫にカスタムグラデーションを適用
+nekos --id sad_cat --colors "#ff00ff" "#00ffff"
+
+# グローバルインストールなしでnpxを使っても実行できます
+npx nekos --colors "#ff00ff #00ffff"
+```
+
+---
 
 ## API
 

@@ -1,7 +1,10 @@
 {
   "name": "nekos",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "Let's have cute cats mess around in the log!",
+  "bin": {
+    "nekos": "bin/nekos.js"
+  },
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -38,6 +41,7 @@
   "homepage": "https://github.com/otoneko1102/nekos#readme",
   "dependencies": {
     "@randplus/color": "^3.0.0",
+    "commander": "^14.0.0",
     "gradient-string": "^3.0.0"
   },
   "devDependencies": {
