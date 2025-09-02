@@ -41,7 +41,7 @@ nekos({ colors: ["#ff00ff", "#00ffff"] });
 nekos({ id: "sad_cat", colors: ["RANDOM", "RANDOM"] });
 ```
 
-[ESM Example - demo.js](test/demo.js)
+[ESM Example - demo.js](test/demo.js)  
 [CJS Example - demo.cjs](test/demo.cjs)
 
 ---
@@ -147,7 +147,7 @@ nekos({ colors: ["#ff00ff", "#00ffff"] });
 nekos({ id: "sad_cat", colors: ["RANDOM", "RANDOM"] });
 ```
 
-[ESM Example - demo.js](test/demo.js)
+[ESM Example - demo.js](test/demo.js)  
 [CJS Example - demo.cjs](test/demo.cjs)
 
 ---
