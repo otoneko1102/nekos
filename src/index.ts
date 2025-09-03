@@ -74,7 +74,7 @@ function nekos(options: NekosOptions = {}) {
       }
     } else if (Array.isArray(colors)) {
       if (colors.includes("RAINBOW" as ColorValue)) {
-        consola.warn("Cannot use the value, 'RAINBOW' in array.")
+        consola.warn("Cannot use the value, 'RAINBOW' in array.");
       }
       processedColors = colors.map((color) =>
         typeof color === "string" && color.toUpperCase() === "RANDOM"
