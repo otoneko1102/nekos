@@ -1,6 +1,6 @@
 {
   "name": "nekos",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Let's have cute cats mess around in the log!",
   "bin": {
     "nekos": "bin/nekos.js"
@@ -42,6 +42,7 @@
   "dependencies": {
     "@randplus/color": "^3.0.0",
     "commander": "^14.0.0",
+    "consola": "^3.4.2",
     "gradient-string": "^3.0.0"
   },
   "devDependencies": {
