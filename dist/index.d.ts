@@ -1,9 +1,10 @@
-type ColorKeyword = "RANDOM" | "RAINBOW";
+type SingleColorKeyword = "RAINBOW";
+type ColorKeyword = "RANDOM";
 type HexColor = `#${string}`;
 type ColorValue = ColorKeyword | HexColor;
 interface NekosOptions {
     id?: string;
-    colors?: ColorValue | ColorValue[];
+    colors?: SingleColorKeyword | ColorValue | ColorValue[];
 }
 /**
  * Logs a cat ASCII art to the console.

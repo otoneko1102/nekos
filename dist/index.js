@@ -2,6 +2,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { consola } from "consola";
 import { hex } from "@randplus/color";
 import gradient from "gradient-string";
 var __filename = fileURLToPath(import.meta.url);
@@ -50,8 +51,11 @@ function nekos(options = {}) {
         processedColors = [colors];
       }
     } else if (Array.isArray(colors)) {
+      if (colors.includes("RAINBOW")) {
+        consola.warn("Cannot use the value, 'RAINBOW' in array.");
+      }
       processedColors = colors.map(
-        (color) => typeof color === "string" && color.toUpperCase() === "RANDOM" ? hex("#") : color
+        (color2) => typeof color2 === "string" && color2.toUpperCase() === "RANDOM" ? hex("#") : color2
       );
     } else {
       processedColors = colors;

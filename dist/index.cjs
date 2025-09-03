@@ -34,6 +34,7 @@ __export(cjs_entry_exports, {
 module.exports = __toCommonJS(cjs_entry_exports);
 var import_fs = __toESM(require("fs"));
 var import_path = __toESM(require("path"));
+var import_consola = require("consola");
 var import_color = require("@randplus/color");
 var import_gradient_string = __toESM(require("gradient-string"));
 var aaDir = import_path.default.join(__dirname, "../aa");
@@ -80,8 +81,11 @@ function nekos(options = {}) {
         processedColors = [colors];
       }
     } else if (Array.isArray(colors)) {
+      if (colors.includes("RAINBOW")) {
+        import_consola.consola.warn("Cannot use the value, 'RAINBOW' in array.");
+      }
       processedColors = colors.map(
-        (color) => typeof color === "string" && color.toUpperCase() === "RANDOM" ? (0, import_color.hex)("#") : color
+        (color2) => typeof color2 === "string" && color2.toUpperCase() === "RANDOM" ? (0, import_color.hex)("#") : color2
       );
     } else {
       processedColors = colors;
