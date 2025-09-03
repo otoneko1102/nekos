@@ -1,17 +1,19 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { hex } from "@randplus/color";
+import { consola } from "consola";
+import color, { hex } from "@randplus/color";
 import gradient from "gradient-string";
 
 // Define types for clarity and safety
-type ColorKeyword = "RANDOM" | "RAINBOW";
+type SingleColorKeyword = "RAINBOW";
+type ColorKeyword = "RANDOM";
 type HexColor = `#${string}`;
 type ColorValue = ColorKeyword | HexColor;
 
 interface NekosOptions {
   id?: string;
-  colors?: ColorValue | ColorValue[];
+  colors?: SingleColorKeyword | ColorValue | ColorValue[];
 }
 
 const __filename = fileURLToPath(import.meta.url);
@@ -71,6 +73,9 @@ function nekos(options: NekosOptions = {}) {
         processedColors = [colors];
       }
     } else if (Array.isArray(colors)) {
+      if (colors.includes("RAINBOW" as ColorValue)) {
+        consola.warn("Cannot use the value, 'RAINBOW' in array.")
+      }
       processedColors = colors.map((color) =>
         typeof color === "string" && color.toUpperCase() === "RANDOM"
           ? hex("#")
