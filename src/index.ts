@@ -79,7 +79,7 @@ function nekos(options: NekosOptions = {}) {
       processedColors = colors.map((color) =>
         typeof color === "string" && color.toUpperCase() === "RANDOM"
           ? hex("#")
-          : color
+          : color,
       );
     } else {
       processedColors = colors;
