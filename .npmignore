@@ -12,5 +12,8 @@ scripts/
 test/
 
 # Config
+.gitignore
+.prettierignore
+.prettierrc.json
 tsconfig.json
 .env
