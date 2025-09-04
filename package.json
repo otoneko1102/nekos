@@ -1,6 +1,6 @@
 {
   "name": "nekos",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Let's have cute cats mess around in the log!",
   "bin": {
     "nekos": "bin/nekos.js"
@@ -16,9 +16,11 @@
   "scripts": {
     "test": "cross-env FORCE_COLOR=1 node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "clean": "rimraf dist",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "build:types": "tsc",
     "build:js": "node scripts/build.js",
-    "build": "npm run clean && npm run build:types && npm run build:js"
+    "build": "npm run clean && npm run format && npm run build:types && npm run build:js"
   },
   "repository": {
     "type": "git",
@@ -43,13 +45,15 @@
     "@randplus/color": "^3.0.0",
     "commander": "^14.0.0",
     "consola": "^3.4.2",
-    "gradient-string": "^3.0.0"
+    "gradient-string": "^3.0.0",
+    "is-package-latest": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
     "cross-env": "^10.0.0",
     "esbuild": "^0.25.9",
     "jest": "^30.1.1",
+    "prettier": "3.6.2",
     "rimraf": "^6.0.1",
     "typescript": "^5.9.2"
   }
