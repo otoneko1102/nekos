@@ -2,6 +2,21 @@
 
 We welcome contributions! If you want to add a new ASCII art, please follow these rules.
 
+## Required Process
+
+### Setup
+
+```bash
+npm install
+```
+
+### Test
+
+```bash
+npm run build
+npm run test
+```
+
 ## Adding New ASCII Art
 
 You can add new cat ASCII art to the `aa/` directory. A pull request is required to add a file.
@@ -23,6 +38,21 @@ Thank you for your contribution! 🐱
 # コントリビューションの方法 (日本語)
 
 コントリビューションを歓迎します！新しいアスキーアートを追加したい場合は、以下のルールに従ってください。
+
+## 必要な手順
+
+### セットアップ
+
+```bash
+npm install
+```
+
+### テスト
+
+```bash
+npm run build
+npm run test
+```
 
 ## 新しいアスキーアートの追加
 

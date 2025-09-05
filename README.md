@@ -64,18 +64,27 @@ nekos
 
 # Display a specific cat by ID
 nekos --id my_cat
+nekos -i my_cat
 
 # Display a cat with a rainbow gradient
 nekos --colors RAINBOW
+nekos -c RAINBOW
 
 # Display a cat with two random gradient colors
 nekos --colors RANDOM RANDOM
+nekos -c RANDOM RANDOM
 
 # Display a specific cat with a custom gradient
 nekos --id sad_cat --colors "#ff00ff" "#00ffff"
+nekos -i sad_cat -c "#ff00ff" "#00ffff"
 
 # You can also use npx without a global installation
 npx nekos --colors "#ff00ff #00ffff"
+npx nekos -c "#ff00ff" "#00ffff"
+
+# Check the current version.
+nekos --version
+nekos -v
 ```
 
 ---
@@ -170,18 +179,27 @@ nekos
 
 # IDを指定して特定の猫を表示
 nekos --id my_cat
+nekos -i
 
 # 虹色のグラデーションで猫を表示
 nekos --colors RAINBOW
+nekos -c RAINBOW
 
 # 2色のランダムなグラデーションで猫を表示
 nekos --colors RANDOM RANDOM
+nekos -c RANDOM RANDOM
 
 # IDを指定した猫にカスタムグラデーションを適用
 nekos --id sad_cat --colors "#ff00ff" "#00ffff"
+nekos -i sad_cat -c "#ff00ff" "#00ffff"
 
 # グローバルインストールなしでnpxを使っても実行できます
 npx nekos --colors "#ff00ff #00ffff"
+npx nekos -c "#ff00ff" "#00ffff"
+
+# 現在のバージョンを確認
+nekos --version
+nekos -v
 ```
 
 ---
