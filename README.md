@@ -5,6 +5,8 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Validate AA Contribution](https://github.com/otoneko1102/nekos/actions/workflows/validate-aa.yml/badge.svg)](https://github.com/otoneko110/nekos/actions/workflows/validate-aa.yml)
 
+<a href="https://www.buymeacoffee.com/debuloper" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 A simple CLI tool to display cat ASCII art in your console.
 
 ![sample](img/sample.png)
