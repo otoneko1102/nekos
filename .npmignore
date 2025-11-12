@@ -13,6 +13,7 @@ test/
 
 # Config
 .gitignore
+.gitattributes
 .prettierignore
 .prettierrc.json
 tsconfig.json
