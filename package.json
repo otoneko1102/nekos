@@ -1,6 +1,6 @@
 {
   "name": "nekos",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Let's have cute cats mess around in the log!",
   "bin": {
     "nekos": "bin/nekos.js"
