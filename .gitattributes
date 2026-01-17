@@ -1,3 +1,2 @@
-archives/* linguist-generated
-dist/* linguist-generated
-test/* linguist-generated
+dist/** linguist-generated
+test/** linguist-vendored
