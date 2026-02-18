@@ -55,7 +55,7 @@ function nekos(options = {}) {
         consola.warn("Cannot use the value, 'RAINBOW' in array.");
       }
       processedColors = colors.map(
-        (color2) => typeof color2 === "string" && color2.toUpperCase() === "RANDOM" ? hex("#") : color2
+        (color) => typeof color === "string" && color.toUpperCase() === "RANDOM" ? hex("#") : color
       );
     } else {
       processedColors = colors;
