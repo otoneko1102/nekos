@@ -1,4 +1,4 @@
-# nekos 🐱
+## nekos 🐱 (日本語)
 
 [![npm version](https://badge.fury.io/js/nekos.svg)](https://badge.fury.io/js/nekos)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -9,19 +9,19 @@
 
 <a href='https://ko-fi.com/E1E41LY2C9' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
-**English** | [日本語](./README-ja.md)
+[English](./README.md) | **日本語**
 
-A simple CLI tool to display cat ASCII art in your console.
+コンソールに猫のアスキーアートを表示する、シンプルな CLI ツールです。
 
 ![sample](img/sample.png)
 
-## Install
+## インストール
 
 ```bash
 npm install nekos
 ```
 
-## Usage
+## 使い方
 
 ```javascript
 // ESM
@@ -29,22 +29,22 @@ import nekos from "nekos";
 // CJS
 const nekos = require("nekos").default;
 
-// Log a random cat
+// ランダムな猫を表示
 nekos();
 
-// Log a specific cat by ID
+// IDを指定して特定の猫を表示
 nekos({ id: "my_cat" });
 
-// Log a cat with a rainbow gradient
+// 虹色のグラデーションで猫を表示
 nekos({ colors: "RAINBOW" });
 
-// Log a cat with a single random color
+// ランダムな単色で猫を表示
 nekos({ colors: "RANDOM" });
 
-// Log a cat with a custom gradient
+// カスタムグラデーションで猫を表示
 nekos({ colors: ["#ff00ff", "#00ffff"] });
 
-// Log a specific cat with two random gradient colors
+// IDを指定した猫に、2色のランダムなグラデーションを適用
 nekos({ id: "sad_cat", colors: ["RANDOM", "RANDOM"] });
 ```
 
@@ -53,42 +53,42 @@ nekos({ id: "sad_cat", colors: ["RANDOM", "RANDOM"] });
 
 ---
 
-## CLI Usage
+## コマンドラインでの使い方
 
-For command line use, either install the package globally or use `npx`.
+コマンドラインで使うには、パッケージをグローバルインストールするか、`npx`を利用します。
 
 ```bash
-# Install globally
+# グローバルインストール
 npm install -g nekos
 ```
 
-### Examples
+### 実行例
 
 ```bash
-# Display a random cat
+# ランダムな猫を表示
 nekos
 
-# Display a specific cat by ID
+# IDを指定して特定の猫を表示
 nekos --id my_cat
-nekos -i my_cat
+nekos -i
 
-# Display a cat with a rainbow gradient
+# 虹色のグラデーションで猫を表示
 nekos --colors RAINBOW
 nekos -c RAINBOW
 
-# Display a cat with two random gradient colors
+# 2色のランダムなグラデーションで猫を表示
 nekos --colors RANDOM RANDOM
 nekos -c RANDOM RANDOM
 
-# Display a specific cat with a custom gradient
+# IDを指定した猫にカスタムグラデーションを適用
 nekos --id sad_cat --colors "#ff00ff" "#00ffff"
 nekos -i sad_cat -c "#ff00ff" "#00ffff"
 
-# You can also use npx without a global installation
+# グローバルインストールなしでnpxを使っても実行できます
 npx nekos --colors "#ff00ff #00ffff"
 npx nekos -c "#ff00ff" "#00ffff"
 
-# Check the current version.
+# 現在のバージョンを確認
 nekos --version
 nekos -v
 ```
@@ -101,29 +101,29 @@ nekos -v
 
 ### options
 
-Type: `object`
+型: `object`
 
 #### id
 
-Type: `string`
+型: `string`
 
-The ID of the ASCII art to display (the filename without the `.txt` extension). If not provided, a random cat will be shown.
+表示したいアスキーアートの ID（`.txt`を除いたファイル名）。指定しない場合は、ランダムな猫が表示されます。
 
 #### colors
 
-Type: `string | string[]`
+型: `string | string[]`
 
-Specify the color(s) for the ASCII art.
+アスキーアートの色を指定します。
 
-- **String Keywords:**
-  - `'RANDOM'`: Applies a single random solid color.
-  - `'RAINBOW'`: Applies a rainbow gradient.
-- **String Array:** An array of color strings (e.g., hex codes, color names) to create a custom gradient.
+- **文字列キーワード:**
+  - `'RANDOM'`: ランダムな単色を適用します。
+  - `'RAINBOW'`: 虹色のグラデーションを適用します。
+- **文字列配列:** カスタムグラデーションを作成するための色の配列（例: HEX コード、色名）。
 
-## Contributing
+## コントリビューション
 
-Contributions are welcome! Please see the [Contributing Guidelines](CONTRIBUTING.md) for more details.
+コントリビューションを歓迎します！詳細は[コントリビューションガイドライン](CONTRIBUTING.md)をご覧ください。
 
-# Contributors
+# 貢献者
 
 [![Contributors](https://contrib.rocks/image?repo=otoneko1102/nekos)](https://github.com/otoneko1102/nekos/graphs/contributors)
