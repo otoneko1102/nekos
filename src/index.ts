@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { consola } from "consola";
-import color, { hex } from "@randplus/color";
+import { hex } from "@randplus/color";
 import gradient from "gradient-string";
 
 // Define types for clarity and safety
